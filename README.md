@@ -7,9 +7,8 @@ Cloud Computing Project for 6th Sem
 ### Strongly recommend to use a virtual environment and Visual Studio Code as the editor.
 
 ## If using a virtual environment
-* python3 -m venv env
-* cd env
-* source bin/activate
+* `python3 -m venv env` # To create a virtual env.
+* `cd env && source bin/activate` # To activate venv. Do this everytime you start to work.
 
 ## Clone from gitlab.
 
@@ -22,4 +21,4 @@ Cloud Computing Project for 6th Sem
 * `pip3 install -r requirements.txt`
 
 ## To run the django project
-* python3 manage.py runserver
+* `python3 manage.py runserver`
