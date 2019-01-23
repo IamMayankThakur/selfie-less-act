@@ -20,6 +20,7 @@ Cloud Computing Project for 6th Sem
 
 ## Initialise the repository
 * `pip3 install -r requirements.txt`
+* `python manage.py createsuperuser`
 
 ## To run the django project
 * `python3 manage.py runserver`
