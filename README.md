@@ -24,6 +24,13 @@ Cloud Computing Project for 6th Sem
 ## To run the django project
 * `python3 manage.py runserver`
 
+## Initialise the db
+* When changes to the database schema are made (the models), run `python manage.py makemigrations` and then  	`python manage.py migrate` from the repo directory in order to make the corresponding changes in the schema to  your local database.
+* Mostly not needed at the moment as we are using sqlite3 rn
+
+## Pull before making any new commits
+* Pull using ``git pull origin `branch_name` ``
+
 ## To commit your changes
 * `git add .`
 * `git commit -m "Message"`
