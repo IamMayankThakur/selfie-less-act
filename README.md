@@ -15,6 +15,7 @@ Cloud Computing Project for 6th Sem
 * `git clone 'your_path'`
 * `cd selfie-less-act`
 * Create a new branch using `git checkout -b 'branch_name'`
+
 ### * Do not work on `master` branch.
 
 ## Initialise the repository
@@ -22,3 +23,8 @@ Cloud Computing Project for 6th Sem
 
 ## To run the django project
 * `python3 manage.py runserver`
+
+## To commit your changes
+* `git add .`
+* `git commit -m "Message"`
+* `git push origin 'branch_name'`
