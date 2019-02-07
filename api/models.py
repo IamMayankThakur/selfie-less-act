@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # Category: (catId, categoryName)
@@ -15,5 +16,6 @@ class Act(models.Model):
 	timestamp = models.DateTimeField(auto_now=True)
 	caption = models.CharField(max_length=512)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
 
 

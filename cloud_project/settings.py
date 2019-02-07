@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'selfie_less_act.apps.SelfieLessActConfig',
+    # 'selfie_less_act.apps.SelfieLessActConfig',
     'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -92,6 +92,9 @@ DATABASES = {
 #         'rest_framework.parsers.JSONParser',
 #     )
 # }
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

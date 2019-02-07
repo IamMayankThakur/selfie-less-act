@@ -18,6 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('he/', include('selfie_less_act.urls')),
-    path('api/', include('api.urls')),
+    path('api/v1/', include('api.urls', namespace='v1')),
 ]
