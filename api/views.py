@@ -76,14 +76,22 @@ def delete_category_view(request,category_name):
 
 @api_view(['GET'])
 def get_category_act_view(request, category_name):
+        # print(category_name)
+        # data = Act.objects.filter(category__category_name=str(category_name))
+        # print(data)
         if request.method =='GET':
 
                 try:
-                        acts = serializers.serialize("json", Act.objects.get(category=category_name))
-                        if(acts.count()>500):
-                                return Response(data={},status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
-                # acts = Act.objects.all(category=category_name)
-                        return JsonResponse(acts)
+                        # acts= Act.objects.filter(category__category_name=category_name)
+                        # print(acts)
+                        acts = serializers.serialize("json", Act.objects.filter(category__category_name=category_name))
+                        print(acts)
+                        # print(acts.count())
+                #         if(acts.count()>500):
+                #                 return Response(data={},status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
+                # # acts = Act.objects.all(category=category_name)
+                #         print(acts)
+                        return Response(data=acts)
                 except:
                         return Response(data={},status=status.HTTP_204_NO_CONTENT)
 
