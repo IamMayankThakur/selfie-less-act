@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.http import JsonResponse
 import io
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
@@ -11,6 +11,7 @@ from rest_framework import generics
 from rest_framework import status
 
 from .serializers import AddUserSerializer
+from .serializers import AddCategorySerializer
 from .request import AddUserRequest
 
 from .models import User
@@ -37,40 +38,58 @@ def add_user_view(request):
 @api_view(['POST'])
 def add_category_view(request):
         if request.method =='POST':
-                sth = AddUserSerializer(data=request.data)
-                print(sth.is_valid())
-                print(sth['category_name'].value)
-                category = Category(category_name= sth['category_name'].value)
-                category.save()
-                print(sth.is_valid())
-                print(sth.validated_data)
-                r = JSONRenderer()
-                data = r.render(dict())
-                return Response(data=data, status=status.HTTP_201_CREATED)
-
+                try:
+                        # sth = AddCategorySerializer(data=request.data)
+                        # print(sth.is_valid())
+                        # print(sth['category_name'].value)
+                        category = Category(category_name= request['category_name'].value)
+                        category.save()
+                        # print(sth.is_valid())
+                        # print(sth.validated_data)
+                        # r = JSONRenderer()
+                        # data = r.render(dict())
+                        return Response(data={}, status=status.HTTP_201_CREATED)
+                except:
+                        r = JSONRenderer()
+                        data = r.render(dict())
+                        return Response(data=data, status = status.HTTP_405_METHOD_NOT_ALLOWED)
+        else:
+                # r = JSONRenderer()
+                # data = r.render(dict())
+                return Response(data=data, status= status.HTTP_400_BAD_REQUEST)
+                
+                #method not allowed
 
 
 @api_view(['DELETE'])
 def delete_category_view(request,category_name):
         if request.method =='DELETE':
-                sth = AddUserSerializer(data=request.data)
-                print(sth.is_valid())
-                print(category_name)
-                instance = Category.objects.get(category_name= category_name)
-                instance.delete()
-                r = JSONRenderer()
-                data = r.render(dict())
-                return Response(data=data, status=status.HTTP_202_ACCEPTED)
+                try:
+                        instance = Category.objects.get(category_name= category_name)
+                        instance.delete()
+                        return Response(data={}, status=status.HTTP_200_OK)
+                except:
+                        return Response(data={},status=status.HTTP_400_BAD_REQUEST)
+        else:
+                return Response(data={},status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['GET'])
 def get_category_act_view(request, category_name):
         if request.method =='GET':
-                data = serializers.serialize("json", Act.objects.get(category=category_name))
+
+                try:
+                        acts = serializers.serialize("json", Act.objects.get(category=category_name))
+                        if(acts.count()>500):
+                                return Response(data={},status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
                 # acts = Act.objects.all(category=category_name)
-                # r = JSONRenderer()
-                # data = r.render(dict())
-                return Response(data=data, status=status.HTTP_200_OK)
+                        return JsonResponse(acts)
+                except:
+                        return Response(data={},status=status.HTTP_204_NO_CONTENT)
+
+                
+        else:
+                return Response(data={},status = status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 
