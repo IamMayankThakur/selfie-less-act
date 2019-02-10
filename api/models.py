@@ -11,6 +11,7 @@ class Category(models.Model):
 		return self.category_name
 
 class Act(models.Model):
+	username = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
 	image = models.ImageField()
 	upvote = models.IntegerField()
 	timestamp = models.DateTimeField(auto_now=True)

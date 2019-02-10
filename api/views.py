@@ -10,9 +10,10 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework import status
+import base64
 
 from .serializers import AddUserSerializer
-from .serializers import AddCategorySerializer
+#from .serializers import AddCategorySerializer
 from .request import AddUserRequest
 
 from .models import User
@@ -38,13 +39,44 @@ def add_user_view(request):
 @api_view(['DELETE'])
 def remove_act(request,act_id):
 	if request.method=='DELETE':
+		print("Hello2")
 		try:
+			print("Hello3")
 			instance=Act.object.get(pk=act_id)
 			instance.delete()
 			return Response(data={}, status=status.HTTP_200_OK)
 		except:
+			print('Hello4')
 			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
 
+	else:
+		print("Hello5")
+		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['POST'])
+def upload_an_act(request):
+	#print("Hello")
+	if request.method== 'POST':
+		#					print(type(request.data))
+		try:
+			act= Act()
+			act.upvote=0
+			#print("Hello2")
+
+			act.username= request.data['username']
+			#print("Hello3")
+			act.category= str(request.data['categoryName'])
+			act.caption= str(request.data['caption'])
+			act.image= request.data['image']
+			act.timestamp= request.data['timestamp']
+			#act= Act(username, image, upvote, timestamp, caption, category)
+			act.save()
+			#print("Hello2")
+			print(act.caption)
+			return Response(data={}, status= status.HTTP_201_CREATED)
+		except:
+			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
 	else:
 		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
