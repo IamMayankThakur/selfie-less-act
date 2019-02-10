@@ -12,7 +12,7 @@ from rest_framework import generics
 from rest_framework import status
 
 from .serializers import AddUserSerializer
-from .serializers import AddCategorySerializer
+# from .serializers import AddCategorySerializer
 from .request import AddUserRequest
 
 from .models import User
@@ -47,24 +47,3 @@ def remove_act(request,act_id):
 
 	else:
 		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-
-
-
-
-
-
-	
-
-		
-
-			
-
-
-
-
-
-
-
-
