@@ -13,7 +13,11 @@ from rest_framework import status
 import base64
 
 from .serializers import AddUserSerializer
+<<<<<<< HEAD
 #from .serializers import AddCategorySerializer
+=======
+# from .serializers import AddCategorySerializer
+>>>>>>> 08e9160e5310fc915eee18253dc4dbcbc9763fe8
 from .request import AddUserRequest
 
 from .models import User
@@ -50,6 +54,7 @@ def remove_act(request,act_id):
 			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
 
 	else:
+<<<<<<< HEAD
 		print("Hello5")
 		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -100,3 +105,6 @@ def upload_an_act(request):
 
 
 
+=======
+		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
+>>>>>>> 08e9160e5310fc915eee18253dc4dbcbc9763fe8
