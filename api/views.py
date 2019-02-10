@@ -19,6 +19,7 @@ from .models import Category
 from .models import Act
 
 from django.core import serializers
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 @api_view(['POST'])
 def add_user_view(request):
@@ -84,15 +85,22 @@ def get_category_act_view(request, category_name):
                 try:
                         # acts= Act.objects.filter(category__category_name=category_name)
                         # print(acts)
-                        acts = serializers.serialize("json", Act.objects.filter(category__category_name=category_name))
-                        print(acts)
+                        if(Act.objects.filter(category__category_name=category_name).exists()):
+                                acts = serializers.serialize("json", Act.objects.filter(category__category_name=category_name))
+                                # acts = Act.objects.filter(category__category_name=category_name)
+                                return Response(data=acts)
+                        else:
+                                return Response(data={},status=status.HTTP_204_NO_CONTENT)
+                        
+                        
+                        
                         # print(acts.count())
                 #         if(acts.count()>500):
                 #                 return Response(data={},status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
                 # # acts = Act.objects.all(category=category_name)
                 #         print(acts)
-                        return Response(data=acts)
-                except:
+                        # return Response(data=acts)
+                except ObjectDoesNotExist:
                         return Response(data={},status=status.HTTP_204_NO_CONTENT)
 
                 
