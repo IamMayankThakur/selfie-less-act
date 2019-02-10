@@ -112,3 +112,70 @@ def get_category_act_view(request, category_name):
                 return Response(data={}, status=status.HTTP_204_NO_CONTENT)
         except ObjectDoesNotExist:
             return Response(data={}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+@api_view(['GET'])
+def list_num_acts_category(request,category_name):
+        if request.method =='GET':
+                try:
+                        a = Category.objects.get(category_name=str(category_name))
+                except Category.DoesNotExist:
+                        return Response(data={},status=status.HTTP_400_BAD_REQUEST)
+                acts =  Act.objects.filter(category__category_name=str(category_name)).count()
+                #a1 = {"count":[acts]}
+                a1 = [acts]
+                if(acts>0):
+                        return Response(data=a1,status = status.HTTP_200_OK)
+                elif(acts==0):
+                        return Response(data={},status=status.HTTP_204_NO_CONTENT)
+        else:
+                return Response(data={},status = status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+
+@api_view(['POST'])
+def upvote_act(request):
+        if request.method == 'POST':
+                try:
+                        acts = Act.objects.get(pk=request.data['pk'])
+                except Act.DoesNotExist:
+                        return Response(data={"message":"This act does not exist"},status=status.HTTP_400_BAD_REQUEST)
+                #print("upvotes",acts.upvote)
+                acts.upvote += 1
+                acts.save()
+                #print("upvotes",acts.upvote)
+                #print("acts are ",acts)
+                return Response(data={},status = status.HTTP_200_OK)
+
+        else:
+                return Response(data={},status = status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+
+@api_view(['GET'])
+def list_act_in_category(request,category_name):
+        if request.method == 'GET':
+                print("my function call")
+                try:
+                        a = Category.objects.get(category_name=str(category_name))
+                except Category.DoesNotExist:
+                        return Response(data={},status = status.HTTP_400_BAD_REQUEST)
+                acts = Act.objects.filter(category__category_name=str(category_name)).order_by('pk').reverse()
+                acts2 = []
+                if(len(acts)==0):
+                        return Response(data={},status = status.HTTP_204_NO_CONTENT)
+                start = int(request.GET.get('start'))
+                end = int(request.GET.get('end'))
+                for i in range(start-1,end):
+                    acts2.append(GetCategoryActResponseSerializer(GetCategoryActResponse(
+                        acts[i].id, acts[i].username, acts[i].timestamp, acts[i].caption, acts[i].upvote, acts[i].image)).data)
+                json_res = JSONRenderer().render(acts2)
+
+
+
+                if(len(acts2)>100):
+                        return Response(data={},status = status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
+                else:
+                        #ac1 = serializers.serialize('json',acts2)
+                        return Response(data=json_res,status = status.HTTP_200_OK)
