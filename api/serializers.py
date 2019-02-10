@@ -8,3 +8,11 @@ class AddUserSerializer(serializers.Serializer):
 class AddCategorySerializer(serializers.Serializer):
 	category_name = serializers.CharField(max_length=512)
 
+
+class GetCategoryActResponseSerializer(serializers.Serializer):
+	actId = serializers.IntegerField()
+	username = serializers.CharField()
+	timestamp = serializers.DateTimeField()
+	caption = serializers.CharField()
+	upvotes = serializers.IntegerField()
+	imgb64 = serializers.CharField()
