@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.http import JsonResponse
 
 import io
@@ -52,47 +52,34 @@ def add_user_view(request):
 
 @api_view(['DELETE'])
 def remove_act(request,act_id):
-	if request.method=='DELETE':
-		print("Hello2")
-		try:
-			print("Hello3")
-			instance=Act.object.get(pk=act_id)
-			instance.delete()
-			return Response(data={}, status=status.HTTP_200_OK)
-		except:
-			print('Hello4')
-			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
+    if request.method=='DELETE':
+        instance=Act.objects.get(actId=act_id)
+        ret = instance.delete()
+        if ret[0]==0:
+            return Response(data={}, status=status.HTTP_200_OK)
+        else:
+            return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
 
-	else:
-		print("Hello5")
-		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
+    else:
+        print("Hello5")
+        return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['POST'])
 def upload_an_act(request):
-	#print("Hello")
-	if request.method== 'POST':
-		#					print(type(request.data))
-		try:
-			act= Act()
-			act.upvote=0
-			#print("Hello2")
-
-			act.username= request.data['username']
-			#print("Hello3")
-			act.category= str(request.data['categoryName'])
-			act.caption= str(request.data['caption'])
-			act.image= request.data['image']
-			act.timestamp= request.data['timestamp']
-			#act= Act(username, image, upvote, timestamp, caption, category)
-			act.save()
-			#print("Hello2")
-			print(act.caption)
-			return Response(data={}, status= status.HTTP_201_CREATED)
-		except:
-			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
-	else:
-		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
+    if request.method== 'POST':
+        try:
+            print(request.data)
+            u = User.objects.get(username= request.data['username'])
+            c = Category.objects.get(category_name= request.data['category_name'])
+            act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']))
+            print(act)
+            act.save()
+            return Response(data={}, status= status.HTTP_201_CREATED)
+        except:
+            return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @api_view(['DELETE'])
 def delete_user_view(request,username):
@@ -126,11 +113,11 @@ def add_category_view(request):
 def delete_category_view(request, category_name):
     print(category_name)
     if request.method == 'DELETE':
-        try:
-            instance = Category.objects.get(category_name=category_name)
-            instance.delete()
+        instance = Category.objects.get(category_name=category_name)
+        ret = instance.delete()
+        if ret[0] == 0:
             return Response(data={}, status=status.HTTP_200_OK)
-        except:
+        else:
             return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(data={}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -138,9 +125,13 @@ def delete_category_view(request, category_name):
 
 @api_view(['GET'])
 def get_category_act_view(request, category_name):
+    if len(request.GET)!=0:
+        print("miriams code")
+        return list_act_in_category(request,category_name)
     if request.method == 'GET':
         try:
             response = []
+            # print("hahahahaha",len(request.GET)==0)
             if(Act.objects.filter(category__category_name=category_name).exists()):
                 act = Act.objects.filter(category__category_name=category_name)
                 print(act)
@@ -179,41 +170,45 @@ def list_num_acts_category(request,category_name):
 def upvote_act(request):
         if request.method == 'POST':
                 try:
-                        acts = Act.objects.get(pk=request.data['pk'])
-                except Act.DoesNotExist:
-                        return Response(data={"message":"This act does not exist"},status=status.HTTP_400_BAD_REQUEST)
-                #print("upvotes",acts.upvote)
-                acts.upvote += 1
-                acts.save()
-                #print("upvotes",acts.upvote)
-                #print("acts are ",acts)
-                return Response(data={},status = status.HTTP_200_OK)
-
+                        print(request.data[0])
+                        acts = Act.objects.get(actId=(request.data[0]))
+                        acts.upvote += 1
+                        acts.save()
+                except:
+                        return Response(data={},status=status.HTTP_400_BAD_REQUEST)
+                return Response(data=[],status = status.HTTP_200_OK)
         else:
                 return Response(data={},status = status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 
-@api_view(['GET'])
+# @api_view(['GET'])
 def list_act_in_category(request,category_name):
-        if request.method == 'GET':
-                print("my function call")
-                try:
-                        a = Category.objects.get(category_name=str(category_name))
-                except Category.DoesNotExist:
-                        return Response(data={},status = status.HTTP_400_BAD_REQUEST)
-                acts = Act.objects.filter(category__category_name=str(category_name)).order_by('pk').reverse()
-                acts2 = []
-                if(len(acts)==0):
-                        return Response(data={},status = status.HTTP_204_NO_CONTENT)
-                start = int(request.GET.get('start'))
-                end = int(request.GET.get('end'))
-                for i in range(start-1,end):
-                    acts2.append(GetCategoryActResponseSerializer(GetCategoryActResponse(
-                        acts[i].id, acts[i].username, acts[i].timestamp, acts[i].caption, acts[i].upvote, acts[i].image)).data)
-                json_res = JSONRenderer().render(acts2)
-                if(len(acts2)>100):
-                        return Response(data={},status = status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
-                else:
-                        #ac1 = serializers.serialize('json',acts2)
-                        return Response(data=json_res,status = status.HTTP_200_OK)
+            print("my fghghjghunction call")
+            try:
+                    a = Category.objects.get(category_name=str(category_name))
+            except:
+                    return Response(data={},status = status.HTTP_400_BAD_REQUEST)
+            acts = Act.objects.filter(category__category_name=str(category_name)).order_by('actId').reverse()
+            print("@@@",acts)
+            acts2 = []
+            if(len(acts)==0):
+                    return Response(data={},status = status.HTTP_204_NO_CONTENT)
+            start = int(request.GET.get('start'))
+            end = int(request.GET.get('end'))
+            # count = Act.objects.filter(category__category_name=category_name).count()
+            count = len(acts)
+            print(count, end)
+            if end>count:
+                print("adada")
+                return Response(data={},status= status.HTTP_400_BAD_REQUEST)
+            for i in range(start-1,end):
+                acts2.append(GetCategoryActResponseSerializer(GetCategoryActResponse(
+                    acts[i].id, acts[i].username, acts[i].timestamp, acts[i].caption, acts[i].upvote, acts[i].image)).data)
+            json_res = JSONRenderer().render(acts2)
+            print("jsonres",json_res)
+            if(len(acts2)>100):
+                    return Response(data={},status = status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
+            else:
+                    #ac1 = serializers.serialize('json',acts2)
+                    return Response(data=json_res,status = status.HTTP_200_OK)
