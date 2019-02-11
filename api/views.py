@@ -12,8 +12,10 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework import status
+import base64
 
 from .serializers import AddUserSerializer
+# from .serializers import AddCategorySerializer
 from .serializers import AddCategorySerializer
 from .serializers import GetCategoryActResponseSerializer
 from .request import AddUserRequest
@@ -41,14 +43,56 @@ def add_user_view(request):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         user = User(username= sth['username'].value)
         user.save()
-        user, created = User.objects.get_or_create(username=sth['username'].value)
-        user.set_password(sth['password'].value)
-        user.save()
-        # print(sth.is_valid())
-        # print(sth.validated_data)
-        # r = JSONRenderer()
-        # data = r.render(dict())
-        return Response(data={}, status=status.HTTP_201_CREATED)
+        print(sth.is_valid())
+        print(sth.validated_data)
+        r = JSONRenderer()
+        data = r.render(dict())
+        return Response(data=data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['DELETE'])
+def remove_act(request,act_id):
+	if request.method=='DELETE':
+		print("Hello2")
+		try:
+			print("Hello3")
+			instance=Act.object.get(pk=act_id)
+			instance.delete()
+			return Response(data={}, status=status.HTTP_200_OK)
+		except:
+			print('Hello4')
+			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
+
+	else:
+		print("Hello5")
+		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['POST'])
+def upload_an_act(request):
+	#print("Hello")
+	if request.method== 'POST':
+		#					print(type(request.data))
+		try:
+			act= Act()
+			act.upvote=0
+			#print("Hello2")
+
+			act.username= request.data['username']
+			#print("Hello3")
+			act.category= str(request.data['categoryName'])
+			act.caption= str(request.data['caption'])
+			act.image= request.data['image']
+			act.timestamp= request.data['timestamp']
+			#act= Act(username, image, upvote, timestamp, caption, category)
+			act.save()
+			#print("Hello2")
+			print(act.caption)
+			return Response(data={}, status= status.HTTP_201_CREATED)
+		except:
+			return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
+	else:
+		return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @api_view(['DELETE'])
 def delete_user_view(request,username):
@@ -58,7 +102,7 @@ def delete_user_view(request,username):
         # ret[0] is 0 means 0 objects have been deleted, that is when there are no users with that username
         if ret[0] == 0:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(status=status.HTTP_200_OK)
+        return Response(data ={},status=status.HTTP_200_OK)
 
 
 # Also the view for list all categories
@@ -77,9 +121,6 @@ def add_category_view(request):
         l = Act.objects.all().values('category').annotate(
             total=Count('category'))
         return Response(data=l,status=status.HTTP_200_OK)
-
-        # method not allowed
-
 
 @api_view(['DELETE'])
 def delete_category_view(request, category_name):
