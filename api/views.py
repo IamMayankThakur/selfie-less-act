@@ -105,9 +105,17 @@ def add_category_view(request):
                 return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         return Response(data={}, status=status.HTTP_201_CREATED)
     if request.method == 'GET':
-        l = Act.objects.all().values('category').annotate(
-            total=Count('category'))
-        return Response(data=l,status=status.HTTP_200_OK)
+        # l = Act.objects.all().values('category').order_by('category').annotate(
+        #     total=Count('category'))
+        l = Category.objects.all()
+        op = dict()
+        if (len(l) == 0):
+            return Response(data={}, status=status.HTTP_204_NO_CONTENT)
+        for i in l:
+            op[i.category_name] = Act.objects.filter(category=i).count()
+        #     print(Act.objects.filter(category=i).count())
+        print("op",op)
+        return Response(data=op,status=status.HTTP_200_OK)
 
 @api_view(['DELETE'])
 def delete_category_view(request, category_name):
