@@ -109,6 +109,8 @@ def add_category_view(request):
         #     total=Count('category'))
         l = Category.objects.all()
         op = dict()
+        if (len(l) == 0):
+            return Response(data={}, status=status.HTTP_204_NO_CONTENT)
         for i in l:
             op[i.category_name] = Act.objects.filter(category=i).count()
         #     print(Act.objects.filter(category=i).count())
