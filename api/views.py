@@ -73,8 +73,10 @@ def upload_an_act(request):
             print(request.data)
             if (isValidB64(request.data['imgB64']) == False):
                     return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+            print("loll")
             u = User.objects.get(username= request.data['username'])
-            c = Category.objects.get(category_name= request.data['category_name'])
+            c = Category.objects.get(category_name= request.data['categoryName'])
+            print("lolo")
             act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
             print(act)
             act.save()
