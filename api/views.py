@@ -23,6 +23,7 @@ from .response import GetCategoryActResponse
 
 from .models import User
 from .utils import is_sha1
+from .utils import isValidB64
 from .models import Category
 from .models import Act
 
@@ -55,7 +56,7 @@ def remove_act(request,act_id):
     if request.method=='DELETE':
         instance=Act.objects.get(actId=act_id)
         ret = instance.delete()
-        if ret[0]==0:
+        if ret[0]!=0:
             return Response(data={}, status=status.HTTP_200_OK)
         else:
             return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
@@ -70,9 +71,13 @@ def upload_an_act(request):
     if request.method== 'POST':
         try:
             print(request.data)
+            if (isValidB64(request.data['imgB64']) == False):
+                    return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+            print("loll")
             u = User.objects.get(username= request.data['username'])
-            c = Category.objects.get(category_name= request.data['category_name'])
-            act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']))
+            c = Category.objects.get(category_name= request.data['categoryName'])
+            print("lolo")
+            act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
             print(act)
             act.save()
             return Response(data={}, status= status.HTTP_201_CREATED)
