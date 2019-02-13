@@ -123,7 +123,7 @@ def delete_category_view(request, category_name):
     if request.method == 'DELETE':
         instance = Category.objects.get(category_name=category_name)
         ret = instance.delete()
-        if ret[0] == 0:
+        if ret[0] != 0:
             return Response(data={}, status=status.HTTP_200_OK)
         else:
             return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
