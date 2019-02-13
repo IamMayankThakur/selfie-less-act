@@ -15,3 +15,6 @@ def is_sha1(maybe_sha):
 #         get_category_act_view(request,cat_name)
 #     else:
 #         list_act_in_category(request,cat_name)
+
+def isValidB64(str):
+    return True

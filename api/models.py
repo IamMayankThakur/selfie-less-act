@@ -13,7 +13,7 @@ class Category(models.Model):
 class Act(models.Model):
 	actId = models.IntegerField(blank=True, default=0)
 	username = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-	image = models.ImageField(blank=True, default=None)
+	image = models.TextField(blank=True, default=None)
 	upvote = models.IntegerField(default=0)
 	timestamp = models.DateTimeField(auto_now=True)
 	caption = models.CharField(max_length=512)

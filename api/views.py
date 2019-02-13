@@ -23,6 +23,7 @@ from .response import GetCategoryActResponse
 
 from .models import User
 from .utils import is_sha1
+from .utils import isValidB64
 from .models import Category
 from .models import Act
 
@@ -70,9 +71,11 @@ def upload_an_act(request):
     if request.method== 'POST':
         try:
             print(request.data)
+            if (isValidB64(request.data['imgB64']) == False):
+                    return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
             u = User.objects.get(username= request.data['username'])
             c = Category.objects.get(category_name= request.data['category_name'])
-            act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']))
+            act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
             print(act)
             act.save()
             return Response(data={}, status= status.HTTP_201_CREATED)
