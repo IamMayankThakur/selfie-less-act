@@ -1,0 +1,31 @@
+[2019-03-17 07:54:58 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 07:54:58 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-17 07:54:58 +0000] [10] [INFO] Using worker: sync
+[2019-03-17 07:54:58 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-17 08:01:46 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 08:01:46 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-17 08:01:46 +0000] [10] [INFO] Using worker: sync
+[2019-03-17 08:01:46 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-17 08:02:31 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:13)
+[2019-03-17 13:32:31 +0530] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-17 08:02:31 +0000] [14] [INFO] Booting worker with pid: 14
+[2019-03-17 08:04:59 +0000] [11] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 08:04:59 +0000] [11] [INFO] Listening at: http://0.0.0.0:8000 (11)
+[2019-03-17 08:04:59 +0000] [11] [INFO] Using worker: sync
+[2019-03-17 08:04:59 +0000] [14] [INFO] Booting worker with pid: 14
+[2019-03-17 08:07:32 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 08:07:32 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-17 08:07:32 +0000] [10] [INFO] Using worker: sync
+[2019-03-17 08:07:32 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-17 08:14:37 +0000] [11] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 08:14:37 +0000] [11] [INFO] Listening at: http://0.0.0.0:8000 (11)
+[2019-03-17 08:14:37 +0000] [11] [INFO] Using worker: sync
+[2019-03-17 08:14:37 +0000] [14] [INFO] Booting worker with pid: 14
+[2019-03-17 08:25:15 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 08:25:15 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-17 08:25:15 +0000] [10] [INFO] Using worker: sync
+[2019-03-17 08:25:15 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-17 08:26:46 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-17 08:26:46 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-17 08:26:46 +0000] [10] [INFO] Using worker: sync
+[2019-03-17 08:26:46 +0000] [13] [INFO] Booting worker with pid: 13
