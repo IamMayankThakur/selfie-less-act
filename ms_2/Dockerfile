@@ -8,4 +8,4 @@ COPY requirements.txt /ms2_app/
 RUN pip install -r requirements.txt
 COPY . /ms2_app/
 
-EXPOSE 9000
+EXPOSE 8080
