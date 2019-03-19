@@ -35,7 +35,10 @@ from django.db.models import Count
 @api_view(['DELETE'])
 def remove_act(request,act_id):
     if request.method=='DELETE':
-        instance=Act.objects.get(actId=act_id)
+        try:
+                instance=Act.objects.get(actId=act_id)
+        except:
+            return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         ret = instance.delete()
         if ret[0]!=0:
             return Response(data={}, status=status.HTTP_200_OK)
@@ -61,10 +64,13 @@ def upload_an_act(request):
         #     print(c)  
             user = request.data['username']
             if user in users:
-                act= Act(actId=int(request.data['actId']),username= user,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
-                print(act)
-                act.save()
-                return Response(data={}, status=status.HTTP_201_CREATED)
+                try:
+                        act= Act(actId=int(request.data['actId']),username= user,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
+                        print(act)
+                        act.save()
+                        return Response(data={}, status=status.HTTP_201_CREATED)
+                except:
+                        return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 print("Well here we are again")
                 return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
@@ -102,13 +108,16 @@ def add_category_view(request):
 def delete_category_view(request, category_name):
     print(category_name)
     if request.method == 'DELETE':
-        instance = Category.objects.get(category_name=category_name)
-        ret = instance.delete()
-        print(ret)
-        if ret[0] != 0:
-            return Response(data={}, status=status.HTTP_200_OK)
-        else:
-            return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+                instance = Category.objects.get(category_name=category_name)
+                ret = instance.delete()
+                print(ret)
+                if ret[0] != 0:
+                return Response(data={}, status=status.HTTP_200_OK)
+                else:
+                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+        except:
+                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(data={}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 

@@ -112,3 +112,10 @@
 [2019-03-19 03:00:37 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
 [2019-03-19 03:00:37 +0000] [10] [INFO] Using worker: sync
 [2019-03-19 03:00:37 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-19 03:22:04 +0000] [11] [INFO] Starting gunicorn 19.9.0
+[2019-03-19 03:22:04 +0000] [11] [INFO] Listening at: http://0.0.0.0:8000 (11)
+[2019-03-19 03:22:04 +0000] [11] [INFO] Using worker: sync
+[2019-03-19 03:22:04 +0000] [14] [INFO] Booting worker with pid: 14
+[2019-03-19 03:29:47 +0000] [14] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-19 03:29:55 +0000] [14] [INFO] Worker exiting (pid: 14)
+[2019-03-19 03:29:55 +0000] [16] [INFO] Booting worker with pid: 16
