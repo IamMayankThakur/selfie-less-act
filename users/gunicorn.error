@@ -122,3 +122,27 @@ ImportError: cannot import name 'Category' from 'api.models' (/ms2_app/ms_2/api/
 [2019-03-19 03:22:03 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
 [2019-03-19 03:22:03 +0000] [10] [INFO] Using worker: sync
 [2019-03-19 03:22:03 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-19 14:50:41 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-19 14:50:41 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-19 14:50:41 +0000] [10] [INFO] Using worker: sync
+[2019-03-19 14:50:41 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-19 16:40:52 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-19 16:40:52 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-19 16:40:52 +0000] [10] [INFO] Using worker: sync
+[2019-03-19 16:40:52 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-19 16:52:40 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-19 16:52:40 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-19 16:52:40 +0000] [10] [INFO] Using worker: sync
+[2019-03-19 16:52:40 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-19 16:56:02 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:13)
+[2019-03-19 16:56:02 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-19 16:56:02 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-19 17:16:51 +0000] [15] [INFO] Worker reloading: /users/users/api/views.py modified
+[2019-03-19 17:16:58 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-19 17:16:58 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-03-19 17:19:41 +0000] [17] [INFO] Worker reloading: /users/users/api/views.py modified
+[2019-03-19 17:19:44 +0000] [17] [INFO] Worker exiting (pid: 17)
+[2019-03-19 17:19:44 +0000] [19] [INFO] Booting worker with pid: 19
+[2019-03-19 17:20:18 +0000] [19] [INFO] Worker reloading: /users/users/api/views.py modified
+[2019-03-19 17:20:31 +0000] [19] [INFO] Worker exiting (pid: 19)
+[2019-03-19 17:20:31 +0000] [21] [INFO] Booting worker with pid: 21

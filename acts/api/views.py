@@ -136,7 +136,7 @@ def get_category_act_view(request, category_name):
                 print(act)
                 for i in act:
                     response.append(GetCategoryActResponseSerializer(GetCategoryActResponse(
-                        i.id, i.username, i.timestamp, i.caption, i.upvote, i.image)).data)
+                        i.actId, i.username, i.timestamp, i.caption, i.upvote, i.image)).data)
                 json_res = JSONRenderer().render(response)
                 return Response(data=json_res, status=status.HTTP_200_OK)
             else:
@@ -171,6 +171,8 @@ def upvote_act(request):
                 try:
                         print(request.data[0])
                         acts = Act.objects.get(actId=(request.data[0]))
+                        print(acts)
+                        print("hello")
                         acts.upvote += 1
                         acts.save()
                 except:

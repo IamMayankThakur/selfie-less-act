@@ -41,6 +41,10 @@ class UserView(APIView):
                 else:
                         return Response(status=status.HTTP_400_BAD_REQUEST)
                 user = User(username=sth['username'].value)
+                list1 = User.objects.values_list('username',flat=True)
+                if((sth['username'].value) in list1):
+                        return Response(status= status.HTTP_400_BAD_REQUEST)
+
                 user.save()
                 print(sth.is_valid())
                 print(sth.validated_data)
