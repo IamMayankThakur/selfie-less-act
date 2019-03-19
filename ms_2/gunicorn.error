@@ -30,3 +30,79 @@
 [2019-03-17 08:26:47 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
 [2019-03-17 08:26:47 +0000] [10] [INFO] Using worker: sync
 [2019-03-17 08:26:47 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 05:00:47 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 05:00:47 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 05:00:47 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 05:00:47 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 05:04:03 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 05:04:03 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 05:04:03 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 05:04:03 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 05:29:06 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:13)
+[2019-03-18 05:29:06 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-18 05:29:06 +0000] [14] [INFO] Booting worker with pid: 14
+[2019-03-18 05:29:07 +0000] [14] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/lib/python3.7/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+  File "/ms2_app/ms_2/cloud_project/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/usr/local/lib/python3.7/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/usr/local/lib/python3.7/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.7/site-packages/django/apps/registry.py", line 120, in populate
+    app_config.ready()
+  File "/usr/local/lib/python3.7/site-packages/django/contrib/admin/apps.py", line 24, in ready
+    self.module.autodiscover()
+  File "/usr/local/lib/python3.7/site-packages/django/contrib/admin/__init__.py", line 26, in autodiscover
+    autodiscover_modules('admin', register_to=site)
+  File "/usr/local/lib/python3.7/site-packages/django/utils/module_loading.py", line 47, in autodiscover_modules
+    import_module('%s.%s' % (app_config.name, module_to_search))
+  File "/usr/local/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/ms2_app/ms_2/api/admin.py", line 2, in <module>
+    from .models import Category, Act
+ImportError: cannot import name 'Category' from 'api.models' (/ms2_app/ms_2/api/models.py)
+[2019-03-18 05:29:07 +0000] [14] [INFO] Worker exiting (pid: 14)
+[2019-03-18 05:29:07 +0000] [10] [INFO] Shutting down: Master
+[2019-03-18 05:29:07 +0000] [10] [INFO] Reason: Worker failed to boot.
+[2019-03-18 11:19:20 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 11:19:20 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 11:19:20 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 11:19:20 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 11:23:31 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 11:23:31 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 11:23:31 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 11:23:31 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 11:29:52 +0000] [13] [INFO] Worker reloading: /ms2_app/ms_2/cloud_project/settings.py modified
+[2019-03-18 11:30:06 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-18 11:30:06 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-18 11:30:39 +0000] [11] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 11:30:39 +0000] [11] [INFO] Listening at: http://0.0.0.0:8080 (11)
+[2019-03-18 11:30:39 +0000] [11] [INFO] Using worker: sync
+[2019-03-18 11:30:39 +0000] [14] [INFO] Booting worker with pid: 14
+[2019-03-18 11:33:28 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 11:33:28 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 11:33:28 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 11:33:28 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 11:35:06 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 11:35:06 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 11:35:06 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 11:35:06 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-18 12:24:33 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-18 12:24:33 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-18 12:24:33 +0000] [10] [INFO] Using worker: sync
+[2019-03-18 12:24:33 +0000] [13] [INFO] Booting worker with pid: 13

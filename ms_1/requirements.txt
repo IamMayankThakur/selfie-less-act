@@ -3,3 +3,4 @@ djangorestframework
 djangorestframework-jwt
 django-cors-headers
 gunicorn
+requests

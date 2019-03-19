@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 # Create your models here.
 # Category: (catId, categoryName)
@@ -12,7 +11,7 @@ class Category(models.Model):
 
 class Act(models.Model):
 	actId = models.IntegerField(blank=True, default=0)
-	username = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+	username = models.TextField(blank=False, null=False)
 	image = models.TextField(blank=True, default=None)
 	upvote = models.IntegerField(default=0)
 	timestamp = models.DateTimeField(auto_now=True)

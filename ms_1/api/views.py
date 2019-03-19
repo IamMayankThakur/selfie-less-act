@@ -4,6 +4,7 @@ from django.http import JsonResponse
 
 import io
 import base64
+import requests
 
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
@@ -21,7 +22,6 @@ from .serializers import GetCategoryActResponseSerializer
 from .request import AddUserRequest
 from .response import GetCategoryActResponse
 
-from .models import User
 from .utils import is_sha1
 from .utils import isValidB64
 from .models import Category
@@ -32,25 +32,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
 
 # Create your views here.
-@api_view(['POST'])
-def add_user_view(request):
-    if request.method == 'POST':
-        sth = AddUserSerializer(data=request.data)
-        print(sth.is_valid())
-        # print(sth['username'].value)
-        if (is_sha1(sth['password'].value)):
-                pass
-        else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        user = User(username= sth['username'].value)
-        user.save()
-        print(sth.is_valid())
-        print(sth.validated_data)
-        r = JSONRenderer()
-        data = r.render(dict())
-        return Response(data=data, status=status.HTTP_201_CREATED)
-
-
 @api_view(['DELETE'])
 def remove_act(request,act_id):
     if request.method=='DELETE':
@@ -73,29 +54,24 @@ def upload_an_act(request):
             print(request.data)
             if (isValidB64(request.data['imgB64']) == False):
                     return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
-            print("loll")
-            u = User.objects.get(username= request.data['username'])
+            users = requests.get(
+                "http://23.20.246.30:8080/api/v1/users").json()
+            print(users)
             c = Category.objects.get(category_name= request.data['categoryName'])
-            print("lolo")
-            act= Act(actId=int(request.data['actId']),username= u,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
-            print(act)
-            act.save()
-            return Response(data={}, status= status.HTTP_201_CREATED)
+        #     print(c)  
+            user = request.data['username']
+            if user in users:
+                act= Act(actId=int(request.data['actId']),username= user,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
+                print(act)
+                act.save()
+                return Response(data={}, status=status.HTTP_201_CREATED)
+            else:
+                print("Well here we are again")
+                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
     else:
         return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
-
-@api_view(['DELETE'])
-def delete_user_view(request,username):
-        print(username)
-        print(request.method)
-        ret = User.objects.filter(username=username).delete()
-        # ret[0] is 0 means 0 objects have been deleted, that is when there are no users with that username
-        if ret[0] == 0:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(data ={},status=status.HTTP_200_OK)
-
 
 # Also the view for list all categories
 @api_view(['POST', 'GET'])
