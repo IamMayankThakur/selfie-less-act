@@ -170,3 +170,66 @@
 [2019-03-19 18:28:05 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:27)
 [2019-03-19 18:28:05 +0000] [27] [INFO] Worker exiting (pid: 27)
 [2019-03-19 18:28:05 +0000] [29] [INFO] Booting worker with pid: 29
+[2019-03-19 18:33:38 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:29)
+[2019-03-19 18:33:38 +0000] [29] [INFO] Worker exiting (pid: 29)
+[2019-03-19 18:33:38 +0000] [31] [INFO] Booting worker with pid: 31
+[2019-03-19 18:36:02 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:31)
+[2019-03-19 18:36:02 +0000] [31] [INFO] Worker exiting (pid: 31)
+[2019-03-19 18:36:02 +0000] [33] [INFO] Booting worker with pid: 33
+[2019-03-19 18:47:48 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:33)
+[2019-03-19 18:47:49 +0000] [33] [INFO] Worker exiting (pid: 33)
+[2019-03-19 18:47:49 +0000] [35] [INFO] Booting worker with pid: 35
+[2019-03-19 19:28:21 +0000] [35] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-19 19:28:34 +0000] [35] [INFO] Worker exiting (pid: 35)
+[2019-03-19 19:28:34 +0000] [37] [INFO] Booting worker with pid: 37
+[2019-03-20 04:17:23 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-20 04:17:23 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-20 04:17:23 +0000] [10] [INFO] Using worker: sync
+[2019-03-20 04:17:23 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-20 04:22:41 +0000] [13] [INFO] Worker reloading: /acts/acts/api/models.py modified
+[2019-03-20 04:22:54 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-20 04:22:54 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-20 04:49:13 +0000] [15] [INFO] Worker reloading: /acts/acts/api/models.py modified
+[2019-03-20 04:49:28 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-20 04:49:28 +0000] [178] [INFO] Booting worker with pid: 178
+[2019-03-20 04:53:07 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-20 04:53:07 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-20 04:53:07 +0000] [10] [INFO] Using worker: sync
+[2019-03-20 04:53:07 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-20 04:57:15 +0000] [13] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 04:57:16 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-20 04:57:16 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-20 04:58:28 +0000] [15] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 04:58:37 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-20 04:58:38 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-03-20 04:58:51 +0000] [17] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 04:58:53 +0000] [17] [INFO] Worker exiting (pid: 17)
+[2019-03-20 04:58:53 +0000] [19] [INFO] Booting worker with pid: 19
+[2019-03-20 05:02:44 +0000] [19] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 05:02:49 +0000] [19] [INFO] Worker exiting (pid: 19)
+[2019-03-20 05:02:49 +0000] [21] [INFO] Booting worker with pid: 21
+[2019-03-20 05:06:20 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-20 05:06:20 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-20 05:06:20 +0000] [10] [INFO] Using worker: sync
+[2019-03-20 05:06:20 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-20 05:09:04 +0000] [13] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 05:09:08 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-20 05:09:08 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-20 07:56:36 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:15)
+[2019-03-20 07:56:36 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-20 07:56:36 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-03-20 08:01:39 +0000] [17] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 08:01:45 +0000] [17] [INFO] Worker exiting (pid: 17)
+[2019-03-20 08:01:45 +0000] [19] [INFO] Booting worker with pid: 19
+[2019-03-20 08:03:17 +0000] [19] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 08:03:31 +0000] [19] [INFO] Worker exiting (pid: 19)
+[2019-03-20 08:03:31 +0000] [21] [INFO] Booting worker with pid: 21
+[2019-03-20 08:10:44 +0000] [21] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 08:10:48 +0000] [21] [INFO] Worker exiting (pid: 21)
+[2019-03-20 08:10:48 +0000] [23] [INFO] Booting worker with pid: 23
+[2019-03-20 08:12:40 +0000] [23] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 08:12:44 +0000] [23] [INFO] Worker exiting (pid: 23)
+[2019-03-20 08:12:44 +0000] [25] [INFO] Booting worker with pid: 25
+[2019-03-20 08:13:26 +0000] [25] [INFO] Worker reloading: /acts/acts/api/views.py modified
+[2019-03-20 08:13:30 +0000] [25] [INFO] Worker exiting (pid: 25)
+[2019-03-20 08:13:30 +0000] [27] [INFO] Booting worker with pid: 27

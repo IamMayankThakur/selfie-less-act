@@ -30,6 +30,7 @@ from .models import Act
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
+from datetime import datetime
 
 # Create your views here.
 @api_view(['DELETE'])
@@ -53,17 +54,21 @@ def remove_act(request,act_id):
 @api_view(['POST'])
 def upload_an_act(request):
     if request.method== 'POST':
+        # try:
+        print(request.data)
+        if (isValidB64(request.data['imgB64']) == False):
+                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+        print("### ")
+        users = requests.get("http://10.20.202.199:8080/api/v1/users").json()
+        print(users)
+        print("heelo")
         try:
-            print(request.data)
-            if (isValidB64(request.data['imgB64']) == False):
-                    return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
-            users = requests.get(
-                "http://23.20.246.30:8080/api/v1/users").json()
-            print(users)
-            c = Category.objects.get(category_name= request.data['categoryName'])
-        #     print(c)  
-            user = request.data['username']
-            if user in users:
+                c = Category.objects.get(category_name= request.data['categoryName'])
+#     print(c)  
+        except:
+                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+        user = request.data['username']
+        if user in users:
                 try:
                         act= Act(actId=int(request.data['actId']),username= user,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
                         print(act)
@@ -71,11 +76,11 @@ def upload_an_act(request):
                         return Response(data={}, status=status.HTTP_201_CREATED)
                 except:
                         return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
-            else:
+        else:
                 print("Well here we are again")
-                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
-        except:
-            return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
+        return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+        # except:
+        #     return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
     else:
         return Response(data={}, status= status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -135,8 +140,11 @@ def get_category_act_view(request, category_name):
                 act = Act.objects.filter(category__category_name=category_name)
                 print(act)
                 for i in act:
+                    res = i.timestamp
+                    formatedDate = res.strftime("%d-%m-%Y:%S-%M-%H")
+                    print(formatedDate)
                     response.append(GetCategoryActResponseSerializer(GetCategoryActResponse(
-                        i.actId, i.username, i.timestamp, i.caption, i.upvote, i.image)).data)
+                        i.actId, i.username, formatedDate, i.caption, i.upvote, i.image)).data)
                 json_res = JSONRenderer().render(response)
                 return Response(data=json_res, status=status.HTTP_200_OK)
             else:

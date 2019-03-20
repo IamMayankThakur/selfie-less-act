@@ -10,7 +10,7 @@ class Category(models.Model):
 		return self.category_name
 
 class Act(models.Model):
-	actId = models.IntegerField(blank=True, default=0)
+	actId = models.IntegerField(blank=True, default=0, unique=True)
 	username = models.TextField(blank=False, null=False)
 	image = models.TextField(blank=True, default=None)
 	upvote = models.IntegerField(default=0)
