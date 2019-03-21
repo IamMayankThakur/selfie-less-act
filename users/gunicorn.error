@@ -161,3 +161,10 @@ ImportError: cannot import name 'Category' from 'api.models' (/ms2_app/ms_2/api/
 [2019-03-20 07:56:36 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:13)
 [2019-03-20 07:56:36 +0000] [13] [INFO] Worker exiting (pid: 13)
 [2019-03-20 07:56:36 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-20 12:20:56 +0000] [10] [CRITICAL] WORKER TIMEOUT (pid:15)
+[2019-03-20 12:20:56 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-20 12:20:56 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-03-20 12:24:57 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-20 12:24:57 +0000] [10] [INFO] Listening at: http://0.0.0.0:8080 (10)
+[2019-03-20 12:24:57 +0000] [10] [INFO] Using worker: sync
+[2019-03-20 12:24:57 +0000] [13] [INFO] Booting worker with pid: 13
