@@ -59,7 +59,8 @@ def upload_an_act(request):
         if (isValidB64(request.data['imgB64']) == False):
                 return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         print("### ")
-        users = requests.get("http://10.20.202.199:8080/api/v1/users").json()
+        # users = requests.get("http://10.20.202.199:8080/api/v1/users").json()
+        users = requests.get("http://192.168.1.5:8080/api/v1/users").json()
         print(users)
         print("heelo")
         try:
@@ -67,10 +68,18 @@ def upload_an_act(request):
 #     print(c)  
         except:
                 return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+                datetime.strptime(request.data['timestamp'],'%d-%m-%Y:%S-%M-%H')
+                print("helo")
+        except:
+                print("okay")
+                return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
+        
         user = request.data['username']
         if user in users:
                 try:
-                        act= Act(actId=int(request.data['actId']),username= user,category= c,caption= str(request.data['caption']),image=str(request.data['imgB64']))
+                        act= Act(actId=int(request.data['actId']),username= user,category= c,caption= str(request.data['caption']),timestamp=request.data['timestamp'],image=str(request.data['imgB64']))
                         print(act)
                         act.save()
                         return Response(data={}, status=status.HTTP_201_CREATED)
@@ -212,8 +221,10 @@ def list_act_in_category(request,category_name):
                 print("adada")
                 return Response(data={},status= status.HTTP_400_BAD_REQUEST)
             for i in range(start-1,end):
+                res = acts[i].timestamp
+                formatedDate = res.strftime("%d-%m-%Y:%S-%M-%H")
                 acts2.append(GetCategoryActResponseSerializer(GetCategoryActResponse(
-                    acts[i].id, acts[i].username, acts[i].timestamp, acts[i].caption, acts[i].upvote, acts[i].image)).data)
+                    acts[i].id, acts[i].username, formatedDate, acts[i].caption, acts[i].upvote, acts[i].image)).data)
             json_res = JSONRenderer().render(acts2)
             print("jsonres",json_res)
             if(len(acts2)>100):
