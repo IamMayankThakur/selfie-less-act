@@ -60,7 +60,7 @@ def upload_an_act(request):
                 return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         print("### ")
         # users = requests.get("http://10.20.202.199:8080/api/v1/users").json()
-        users = requests.get("http://192.168.1.5:8080/api/v1/users").json()
+        users = requests.get("http://23.20.246.30:8080/api/v1/users").json()
         print(users)
         print("heelo")
         try:
