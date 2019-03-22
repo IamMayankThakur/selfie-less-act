@@ -87,7 +87,7 @@ def upload_an_act(request):
                         return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         else:
                 print("Well here we are again")
-        return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         # except:
         #     return Response(data={}, status= status.HTTP_400_BAD_REQUEST)
     else:
