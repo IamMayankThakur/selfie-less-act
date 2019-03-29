@@ -26,6 +26,7 @@ from .utils import is_sha1
 from .utils import isValidB64
 from .models import Category
 from .models import Act
+from .models import Count
 
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist

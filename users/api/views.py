@@ -22,6 +22,7 @@ from .request import AddUserRequest
 from .response import GetCategoryActResponse
 
 from .models import User
+from .models import Count
 from .utils import is_sha1
 from .utils import isValidB64
 
