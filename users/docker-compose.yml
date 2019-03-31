@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  users:
+    image: users
+    build: .
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             sleep 2 &&
+             python manage.py makemigrations --noinput &&
+             python manage.py migrate --noinput &&
+             gunicorn --reload cloud_project.wsgi:application -b 0.0.0.0:8000 --error-logfile gunicorn.error"
+    volumes:
+      - .:/users
+    ports:
+      - "8000:8000"
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./static/:/acts/static/
+      - ./static/:/users/static/
+    depends_on:
+      - users
+volumes:
+  users:
+  nginx_conf:
+  static:

@@ -9,4 +9,4 @@ COPY requirements.txt /acts/
 RUN pip install -r requirements.txt
 COPY . /acts/
 
-EXPOSE 8000
+EXPOSE 8000 80

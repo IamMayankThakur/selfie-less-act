@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  acts:
+    image: acts
+    build: acts/
+    command: >
+      sh -c "cd acts && python manage.py collectstatic --noinput &&
+             sleep 2 &&
+             python manage.py makemigrations --noinput &&
+             python manage.py migrate --noinput &&
+             gunicorn --reload cloud_project.wsgi:application -b 0.0.0.0:8000 --error-logfile gunicorn.error"
+    volumes:
+      - .:/acts
+    ports:
+      - "8000:8000"
+  users:
+    image: users
+    build: users/
+    command: >
+      sh -c "cd users && python manage.py collectstatic --noinput &&
+             sleep 2 &&
+             python manage.py makemigrations --noinput &&
+             python manage.py migrate --noinput &&
+             gunicorn --reload cloud_project.wsgi:application -b 0.0.0.0:8080 --error-logfile gunicorn.error"
+    volumes:
+      - .:/users
+    ports:
+      - "8080:8080"
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./static/:/acts/static/
+      - ./static/:/users/static/
+    depends_on:
+      - acts
+      - users
+volumes:
+  acts:
+  users:
+  nginx_conf:
+  static:
