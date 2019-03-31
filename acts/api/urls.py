@@ -10,7 +10,9 @@ urlpatterns = [
     path('categories/<slug:category_name>/acts',views.get_category_act_view,name='list_act_category'),
     path('categories/<slug:category_name>/acts/size',views.list_num_acts_category,name='list_of_acts_per_category'),
     path('acts/upvote',views.upvote_act,name='upvote_act'),
-    path('acts',views.upload_an_act,name='upload_an_act'),
+    path('acts', views.upload_an_act, name='upload_an_act'),
+    path('count', views.CountActsView.as_view(), name="Count no of acts"),
+    path('_count', views.CountView.as_view(), name="Count/Reset api count")
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

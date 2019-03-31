@@ -188,3 +188,32 @@ ImportError: cannot import name 'Category' from 'api.models' (/ms2_app/ms_2/api/
 [2019-03-31 03:49:01 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
 [2019-03-31 03:49:01 +0000] [10] [INFO] Using worker: sync
 [2019-03-31 03:49:01 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-31 05:37:58 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-31 05:37:58 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-31 05:37:58 +0000] [10] [INFO] Using worker: sync
+[2019-03-31 05:37:58 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-31 05:43:29 +0000] [13] [INFO] Worker reloading: /users/api/utils.py modified
+[2019-03-31 05:43:35 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-31 05:43:35 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-31 05:45:22 +0000] [15] [INFO] Worker reloading: /users/api/views.py modified
+[2019-03-31 05:45:32 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-31 05:45:32 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-03-31 05:46:24 +0000] [17] [INFO] Worker reloading: /users/api/models.py modified
+[2019-03-31 05:46:26 +0000] [17] [INFO] Worker exiting (pid: 17)
+[2019-03-31 05:46:27 +0000] [19] [INFO] Booting worker with pid: 19
+[2019-03-31 05:47:27 +0000] [10] [INFO] Starting gunicorn 19.9.0
+[2019-03-31 05:47:27 +0000] [10] [INFO] Listening at: http://0.0.0.0:8000 (10)
+[2019-03-31 05:47:27 +0000] [10] [INFO] Using worker: sync
+[2019-03-31 05:47:27 +0000] [13] [INFO] Booting worker with pid: 13
+[2019-03-31 05:48:05 +0000] [13] [INFO] Worker reloading: /users/api/models.py modified
+[2019-03-31 05:48:12 +0000] [13] [INFO] Worker exiting (pid: 13)
+[2019-03-31 05:48:12 +0000] [15] [INFO] Booting worker with pid: 15
+[2019-03-31 05:50:07 +0000] [15] [INFO] Worker reloading: /users/api/views.py modified
+[2019-03-31 05:50:17 +0000] [15] [INFO] Worker exiting (pid: 15)
+[2019-03-31 05:50:17 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-03-31 05:53:00 +0000] [17] [INFO] Worker reloading: /users/api/views.py modified
+[2019-03-31 05:53:03 +0000] [17] [INFO] Worker exiting (pid: 17)
+[2019-03-31 05:53:03 +0000] [19] [INFO] Booting worker with pid: 19
+[2019-03-31 05:53:42 +0000] [19] [INFO] Worker reloading: /users/api/views.py modified
+[2019-03-31 05:53:45 +0000] [19] [INFO] Worker exiting (pid: 19)
+[2019-03-31 05:53:45 +0000] [21] [INFO] Booting worker with pid: 21

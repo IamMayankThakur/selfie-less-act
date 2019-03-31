@@ -24,18 +24,20 @@ from .response import GetCategoryActResponse
 
 from .utils import is_sha1
 from .utils import isValidB64
+from .utils import increment_count
 from .models import Category
 from .models import Act
 from .models import Count
 
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count
+# from django.db.models import Count
 from datetime import datetime
 
 # Create your views here.
 @api_view(['DELETE'])
-def remove_act(request,act_id):
+def remove_act(request, act_id):
+    increment_count()
     if request.method=='DELETE':
         try:
                 instance=Act.objects.get(actId=act_id)
@@ -54,6 +56,7 @@ def remove_act(request,act_id):
 
 @api_view(['POST'])
 def upload_an_act(request):
+    increment_count()
     if request.method== 'POST':
         # try:
         print(request.data)
@@ -61,7 +64,7 @@ def upload_an_act(request):
                 return Response(data={}, status=status.HTTP_400_BAD_REQUEST)
         print("### ")
         # users = requests.get("http://10.20.202.199:8080/api/v1/users").json()
-        users = requests.get("http://23.20.246.30:8080/api/v1/users").json()
+        users = requests.get("http://23.20.246.30/api/v1/users").json()
         print(users)
         print("heelo")
         try:
@@ -98,6 +101,7 @@ def upload_an_act(request):
 @api_view(['POST', 'GET'])
 def add_category_view(request):
         # print(request.data)
+    increment_count()
     if request.method == 'POST':
         for i in request.data:
             try:
@@ -122,6 +126,7 @@ def add_category_view(request):
 @api_view(['DELETE'])
 def delete_category_view(request, category_name):
     print(category_name)
+    increment_count()
     if request.method == 'DELETE':
         try:
                 instance = Category.objects.get(category_name=category_name)
@@ -139,6 +144,7 @@ def delete_category_view(request, category_name):
 
 @api_view(['GET'])
 def get_category_act_view(request, category_name):
+    increment_count()
     if len(request.GET)!=0:
         print("miriams code")
         return list_act_in_category(request,category_name)
@@ -165,7 +171,8 @@ def get_category_act_view(request, category_name):
 
 
 @api_view(['GET'])
-def list_num_acts_category(request,category_name):
+def list_num_acts_category(request, category_name):
+        increment_count()
         if request.method =='GET':
                 try:
                         a = Category.objects.get(category_name=str(category_name))
@@ -185,6 +192,7 @@ def list_num_acts_category(request,category_name):
 
 @api_view(['POST'])
 def upvote_act(request):
+        increment_count()
         if request.method == 'POST':
                 try:
                         print(request.data[0])
@@ -202,7 +210,8 @@ def upvote_act(request):
 
 
 # @api_view(['GET'])
-def list_act_in_category(request,category_name):
+def list_act_in_category(request, category_name):
+            increment_count()
             print("my fghghjghunction call")
             try:
                     a = Category.objects.get(category_name=str(category_name))
@@ -233,3 +242,27 @@ def list_act_in_category(request,category_name):
             else:
                     #ac1 = serializers.serialize('json',acts2)
                     return Response(data=json_res,status = status.HTTP_200_OK)
+
+
+class CountView(APIView):
+        def get(self, request):
+                try:
+                        k = Count.objects.all()
+                        if list(k) == []:
+                                val = 0
+                        else:
+                                val = Count.objects.first().api_count
+                        return Response(data=[val], status=status.HTTP_200_OK)
+                except Exception as e:
+                        print(e)
+                        return Response(data="Failed", status=status.HTTP_400_BAD_REQUEST)
+
+        def delete(self, request):
+                c = Count.objects.first().delete()
+                return Response(data={}, status=status.HTTP_200_OK)
+
+class CountActsView(APIView):
+        def get(self, request):
+                increment_count()
+                val = Act.objects.all().count()
+                return Response(data=[val], status=status.HTTP_200_OK)

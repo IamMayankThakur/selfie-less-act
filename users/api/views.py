@@ -25,16 +25,17 @@ from .models import User
 from .models import Count
 from .utils import is_sha1
 from .utils import isValidB64
+from .utils import increment_count
 
 from rest_framework.views import APIView
 
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count
 
 # Create your views here.
 class UserView(APIView):
         def post(self, request):
+                increment_count()
                 sth = AddUserSerializer(data=request.data)
                 print(sth.is_valid())
                 if (is_sha1(sth['password'].value)):
@@ -53,13 +54,15 @@ class UserView(APIView):
                 data = r.render(dict())
                 return Response(data=data, status=status.HTTP_201_CREATED)
         def get(self, request):
+                increment_count()
                 users = User.objects.values_list('username', flat=True)
                 print(users)
                 return Response(data=users, status=status.HTTP_200_OK)
 
 
 @api_view(['DELETE'])
-def delete_user_view(request,username):
+def delete_user_view(request, username):
+        increment_count()
         print(username)
         print(request.method)
         ret = User.objects.filter(username=username).delete()
@@ -67,3 +70,19 @@ def delete_user_view(request,username):
         if ret[0] == 0:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(data ={},status=status.HTTP_200_OK)
+
+class CountView(APIView):
+        def get(self, request):
+                try:
+                        k = Count.objects.all()
+                        if list(k) == []:
+                                val = 0
+                        else:
+                                val = Count.objects.first().api_count
+                        return Response(data=[val], status=status.HTTP_200_OK)
+                except Exception as e:
+                        print(e)
+                        return Response(data="Failed", status=status.HTTP_400_BAD_REQUEST)
+        def delete(self, request):
+                c = Count.objects.first().delete()
+                return Response(data = {}, status=status.HTTP_200_OK)
