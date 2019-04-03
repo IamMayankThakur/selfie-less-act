@@ -18,8 +18,6 @@ class Act(models.Model):
 	caption = models.CharField(max_length=512)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-	def __str__(self):
-		return self.actId
 
 
 class Count(models.Model):

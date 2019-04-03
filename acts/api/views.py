@@ -157,6 +157,7 @@ def get_category_act_view(request, category_name):
             if(Act.objects.filter(category__category_name=category_name).exists()):
                 act = Act.objects.filter(category__category_name=category_name)
                 print(act)
+                # act = None
                 for i in act:
                     res = i.timestamp
                     formatedDate = res.strftime("%d-%m-%Y:%S-%M-%H")
