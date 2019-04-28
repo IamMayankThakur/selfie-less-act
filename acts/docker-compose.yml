@@ -9,7 +9,7 @@ services:
              sleep 2 &&
              python manage.py makemigrations --noinput &&
              python manage.py migrate --noinput &&
-             gunicorn --reload cloud_project.wsgi:application -b 0.0.0.0:8000 --error-logfile gunicorn.error"
+             gunicorn3 --reload cloud_project.wsgi:application -b 0.0.0.0:8000 --error-logfile gunicorn.error"
     volumes:
       - .:/acts
     ports:
