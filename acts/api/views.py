@@ -70,7 +70,7 @@ def upload_an_act(request):
         # users = requests.get("http://10.20.202.199:8080/api/v1/users").json()
         # users = requests.get("http://23.20.246.30/api/v1/users").json()
         users = requests.get(
-            "http://user-act-microservice-989302743.us-east-1.elb.amazonaws.com/api/v1/users").json()
+            "http://selfie-less-act-2007274387.us-east-1.elb.amazonaws.com/api/v1/users").json()
         print(users)
         print("heelo")
         try:
