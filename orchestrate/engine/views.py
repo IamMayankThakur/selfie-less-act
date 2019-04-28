@@ -10,7 +10,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
 # Create your views here.
-from .apps import client
+from .apps import client, api_count, port
 
 
 class ProxyView(APIView):

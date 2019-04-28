@@ -294,7 +294,7 @@ class CountActsView(APIView):
 
 class HealthView(APIView):
         def get(self, request):
-                print(check_crash())
+                # print(check_crash())
                 if check_crash() == False:
                         return Response(status=status.HTTP_200_OK)
                 else:

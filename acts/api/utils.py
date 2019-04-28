@@ -41,6 +41,6 @@ def check_crash():
     k = Crash.objects.all()
     if list(k) == []:
             Crash().save()
-    print(k)
+    # print(k)
     crash = Crash.objects.first().crash
     return crash
