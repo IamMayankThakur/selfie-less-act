@@ -10,15 +10,31 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
 # Create your views here.
-from .apps import client, api_count, port
 
-
+from .models import Count
+from .utils import increment_count, prev_con, container_list
 class ProxyView(APIView):
 	def get(self, request, id):
-		print(id)
-		print(client.info())
-		return Response(id)
+		increment_count()
+		ip = "http://127.0.0.1:"
+		# print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/" + id)
+		global prev_con
+		prev_con += 1
+		res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
+		return Response(res.json(), res.status_code)
 	def post(self, request, id):
-		pass
+		increment_count()
+		global prev_con
+		ip = "http://127.0.0.1:"
+		prev_con += 1
+		res = requests.post(ip + str(list(container_list[((prev_con + 1) % len(
+			container_list))].keys())[0]) + "/api/v1/" + id, data=request.POST)
+		return Response(res.json(), res.status_code)
 	def delete(self, request, id):
-		pass
+		increment_count()
+		ip = "http://127.0.0.1:"
+		global prev_con
+		prev_con += 1
+		res = requests.delete(
+			ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
+		return Response(res.json(), res.status_code)

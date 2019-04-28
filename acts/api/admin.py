@@ -4,5 +4,5 @@ from .models import Category, Act, Count, Crash
 
 admin.site.register(Category)
 admin.site.register(Act)
-admin.register(Count)
-admin.register(Crash)
+admin.site.register(Count)
+admin.site.register(Crash)
