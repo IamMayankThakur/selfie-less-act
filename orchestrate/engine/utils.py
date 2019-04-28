@@ -10,6 +10,7 @@ k = 8000
 container_list = []
 started_count = False
 prev_con = 0
+temp = 0
 
 
 def increment_count():
