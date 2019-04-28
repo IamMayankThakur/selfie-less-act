@@ -24,10 +24,10 @@ from .response import GetCategoryActResponse
 
 from .utils import is_sha1
 from .utils import isValidB64
-from .utils import increment_count
+from .utils import increment_count, check_crash
 from .models import Category
 from .models import Act
-from .models import Count
+from .models import Count, Crash
 
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
@@ -37,6 +37,8 @@ from datetime import datetime
 # Create your views here.
 @api_view(['DELETE'])
 def remove_act(request, act_id):
+    if check_crash() == True:
+            return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     increment_count()
     if request.method=='DELETE':
         try:
@@ -56,6 +58,8 @@ def remove_act(request, act_id):
 
 @api_view(['POST'])
 def upload_an_act(request):
+    if check_crash() == True:
+        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     increment_count()
     if request.method== 'POST':
         # try:
@@ -103,6 +107,8 @@ def upload_an_act(request):
 @api_view(['POST', 'GET'])
 def add_category_view(request):
         # print(request.data)
+    if check_crash() == True: 
+        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     increment_count()
     if request.method == 'POST':
         for i in request.data:
@@ -128,6 +134,8 @@ def add_category_view(request):
 @api_view(['DELETE'])
 def delete_category_view(request, category_name):
     print(category_name)
+    if check_crash() == True:
+        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     increment_count()
     if request.method == 'DELETE':
         try:
@@ -146,6 +154,8 @@ def delete_category_view(request, category_name):
 
 @api_view(['GET'])
 def get_category_act_view(request, category_name):
+    if check_crash() == True:
+        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     increment_count()
     if len(request.GET)!=0:
         print("miriams code")
@@ -175,6 +185,8 @@ def get_category_act_view(request, category_name):
 
 @api_view(['GET'])
 def list_num_acts_category(request, category_name):
+        if check_crash() == True:
+            return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         increment_count()
         if request.method =='GET':
                 try:
@@ -195,6 +207,8 @@ def list_num_acts_category(request, category_name):
 
 @api_view(['POST'])
 def upvote_act(request):
+        if check_crash() == True:
+            return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         increment_count()
         if request.method == 'POST':
                 try:
@@ -214,6 +228,8 @@ def upvote_act(request):
 
 # @api_view(['GET'])
 def list_act_in_category(request, category_name):
+            if check_crash() == True:
+                return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             increment_count()
             print("my fghghjghunction call")
             try:
@@ -249,6 +265,8 @@ def list_act_in_category(request, category_name):
 
 class CountView(APIView):
         def get(self, request):
+                if check_crash() == True:
+                        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
                 try:
                         k = Count.objects.all()
                         if list(k) == []:
@@ -261,11 +279,33 @@ class CountView(APIView):
                         return Response(data="Failed", status=status.HTTP_400_BAD_REQUEST)
 
         def delete(self, request):
+                if check_crash() == True:
+                        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
                 c = Count.objects.first().delete()
                 return Response(data={}, status=status.HTTP_200_OK)
 
 class CountActsView(APIView):
         def get(self, request):
+                if check_crash() == True:
+                        return Response(data={}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
                 increment_count()
                 val = Act.objects.all().count()
                 return Response(data=[val], status=status.HTTP_200_OK)
+
+class HealthView(APIView):
+        def get(self, request):
+                print(check_crash())
+                if check_crash() == False:
+                        return Response(status=status.HTTP_200_OK)
+                else:
+                        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class CrashView(APIView):
+        def post(self, request):
+                k = Crash.objects.all()
+                if list(k) == []:
+                        Crash().save()
+                crash = Crash.objects.first()
+                crash.crash = True
+                crash.save()
+                return Response(status=status.HTTP_200_OK)

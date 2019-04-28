@@ -27,4 +27,6 @@ class Count(models.Model):
 		return self.api_count
 
 
+class Crash(models.Model):
+	crash = models.BooleanField(default=False)
 

@@ -1,6 +1,7 @@
 # from .views import get_category_act_view
 # from .views import list_act_in_category
-from .models import Count
+from .models import Count, Crash
+
 
 def is_sha1(maybe_sha):
     if len(maybe_sha) != 40:
@@ -16,6 +17,7 @@ def is_sha1(maybe_sha):
 #         get_category_act_view(request,cat_name)
 #     else:
 #         list_act_in_category(request,cat_name)
+
 
 def isValidB64(str):
     return True
@@ -33,3 +35,12 @@ def increment_count():
     c.save()
     print("Count incremented")
     return 1
+
+
+def check_crash():
+    k = Crash.objects.all()
+    if list(k) == []:
+            Crash().save()
+    print(k)
+    crash = Crash.objects.first().crash
+    return crash
