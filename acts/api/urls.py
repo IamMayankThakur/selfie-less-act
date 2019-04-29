@@ -14,7 +14,8 @@ urlpatterns = [
     path('count', views.CountActsView.as_view(), name="Count no of acts"),
     path('_count', views.CountView.as_view(), name="Count/Reset api count"),
     path('_health', views.HealthView.as_view(), name="Check health"),
-    path('_crash', views.CrashView.as_view(), name="Crash all apis")
+    path('_crash', views.CrashView.as_view(), name="Crash all apis"),
+    path('_resetcrash', views.ResetCrashView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

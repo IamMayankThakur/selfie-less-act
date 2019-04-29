@@ -20,22 +20,47 @@ class ProxyView(APIView):
 		ip = "http://127.0.0.1:"
 		print(container_list)
 		print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
-		prev_con += 1
 		res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
-		return Response(res.json(), res.status_code)
+		prev_con += 1
+		# print(res)
+		try:
+			data = res.json()
+		except:
+			data = {}
+		try:
+			status = res.status_code
+		except:
+			status = 200
+		return Response(data,status)
 	def post(self, request, id):
 		increment_count()
 		global prev_con
 		ip = "http://127.0.0.1:"
-		prev_con += 1
 		res = requests.post(ip + str(list(container_list[((prev_con + 1) % len(
 			container_list))].keys())[0]) + "/api/v1/" + id, data=request.POST)
-		return Response(res.json(), res.status_code)
+		prev_con += 1
+		try:
+			data = res.json()
+		except:
+			data = {}
+		try:
+			status = res.status_code
+		except:
+			status = 200
+		return Response(data, status)
 	def delete(self, request, id):
 		increment_count()
 		ip = "http://127.0.0.1:"
 		global prev_con
-		prev_con += 1
 		res = requests.delete(
 			ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
-		return Response(res.json(), res.status_code)
+		prev_con += 1
+		try:
+			data = res.json()
+		except:
+			data = {}
+		try:
+			status = res.status_code
+		except:
+			status = 200
+		return Response(data, status)

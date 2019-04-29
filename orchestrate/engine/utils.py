@@ -22,7 +22,8 @@ def increment_count():
         c.save()
         print("Incremented count")
         scale()
-        p = 8000
+        health_check()
+        # p = 8000
         # for i in client.containers.list():
         #     container_list.append({p: i})
         #     p+=1
@@ -99,7 +100,8 @@ def health_check():
         response = requests.get(ip + str(port) + "/api/v1/_health")
         # print(ip + str(port) + "/api/v1/_health")
         print("Health :", response)
-        if response.status_code != 200:
+        if not response:
+            requests.get(ip + str(port) + "/api/v1/_resetcrash")
             c_id = list(container_list[i].values())[0]
             c_id.kill()
             container_list.remove(container_list[i])
@@ -111,7 +113,7 @@ def run_container():
     global client
     global k
     global container_list
-    con = client.containers.run('acts', detach=True, volumes={'acts_vol': {'bind': '/acts', 'mode': 'rw'}}, ports={
+    con = client.containers.run('acts', detach=True, volumes={'actw_vol': {'bind': '/acts', 'mode': 'rw'}}, ports={
         '8000/tcp': k}, command="sh -c 'python manage.py collectstatic --noinput && python manage.py makemigrations --noinput && python manage.py migrate --noinput && gunicorn --reload cloud_project.wsgi:application -b 0.0.0.0:8000 --error-logfile gunicorn.error'")
     container_list.append({k: con})
     k += 1

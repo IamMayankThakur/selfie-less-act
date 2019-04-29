@@ -24,7 +24,7 @@ from .response import GetCategoryActResponse
 
 from .utils import is_sha1
 from .utils import isValidB64
-from .utils import increment_count, check_crash
+from .utils import increment_count, check_crash, crash
 from .models import Category
 from .models import Act
 from .models import Count, Crash
@@ -307,5 +307,14 @@ class CrashView(APIView):
                         Crash().save()
                 crash = Crash.objects.first()
                 crash.crash = True
+                crash.save()
+                # global crash
+                # crash = True
+                return Response(status=status.HTTP_200_OK)
+
+class ResetCrashView(APIView):
+        def get(self, request):
+                crash = Crash.objects.first()
+                crash.crash = False
                 crash.save()
                 return Response(status=status.HTTP_200_OK)
