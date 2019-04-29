@@ -60,7 +60,7 @@ def scale():
     print("Count from scale",count)
     threading.Timer(120.0, scale).start()
     # getrequest for the count
-    num_of_con_req = math.ceil(count / 20)
+    num_of_con_req = math.ceil(count-1 / 20)
     if num_of_con_req == 0:
         num_of_con_req = 1
     print("required=", num_of_con_req)
