@@ -16,6 +16,8 @@ temp = 0
 def increment_count():
     global started_count
     global container_list
+    print(Count.objects.all())
+    print(Count.objects.first().api_count)
     if list(Count.objects.all()) == []:
         c = Count()
         started_count = True
@@ -79,6 +81,7 @@ def scale():
         return
 
     if (n == num_of_con_req):
+        print("no increase or decrease in containers")
         return
     if(n < num_of_con_req):
         num_add = num_of_con_req - n

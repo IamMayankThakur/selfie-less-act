@@ -20,6 +20,10 @@ class ProxyView(APIView):
 		# print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/" + id)
 		global prev_con
 		prev_con += 1
+		if(len(container_list)==0):
+			res=requests.get(ip + "8000" + "/api/v1/" + id)
+			return Response(res.json(),res.status_code)
+
 		res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
 		return Response(res.json(), res.status_code)
 	def post(self, request, id):
