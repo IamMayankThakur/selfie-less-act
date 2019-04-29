@@ -351,3 +351,10 @@
 [2019-04-29 05:15:29 +0000] [9] [INFO] Listening at: http://0.0.0.0:8000 (9)
 [2019-04-29 05:15:29 +0000] [9] [INFO] Using worker: sync
 [2019-04-29 05:15:29 +0000] [12] [INFO] Booting worker with pid: 12
+[2019-04-29 05:42:54 +0000] [9] [INFO] Starting gunicorn 19.9.0
+[2019-04-29 05:42:54 +0000] [9] [INFO] Listening at: http://0.0.0.0:8000 (9)
+[2019-04-29 05:42:54 +0000] [9] [INFO] Using worker: sync
+[2019-04-29 05:42:54 +0000] [12] [INFO] Booting worker with pid: 12
+[2019-04-29 05:43:47 +0000] [9] [CRITICAL] WORKER TIMEOUT (pid:12)
+[2019-04-29 05:43:47 +0000] [12] [INFO] Worker exiting (pid: 12)
+[2019-04-29 05:43:47 +0000] [14] [INFO] Booting worker with pid: 14
