@@ -21,23 +21,24 @@ def increment_count():
         c.api_count = 1
         c.save()
         print("Incremented count")
-        p = 8000
-        for i in client.containers.list():
-            container_list.append({p: i})
-            p+=1
-        # health_check()
-        print("CON INIT:", container_list)
         scale()
+        p = 8000
+        # for i in client.containers.list():
+        #     container_list.append({p: i})
+        #     p+=1
+        # # health_check()
+        # print("CON INIT:", container_list)
+        # scale()
         # health_check()
         return 1
     c = Count.objects.first()
     c.api_count = c.api_count + 1
     c.save()
-    p = 8000
-    for i in client.containers.list():
-            container_list.append({p: i})
-            p += 1
-    print("Count incremented")
+    # p = 8000
+    # for i in client.containers.list():
+    #     container_list.append({p: i})
+    #     p += 1
+    # print("Count incremented")
     return 1
 
 def scale():
@@ -110,7 +111,7 @@ def run_container():
     global client
     global k
     global container_list
-    con = client.containers.run('acts:latest', detach=True, volumes={'acts_vol': {'bind': '/acts', 'mode': 'rw'}}, ports={
+    con = client.containers.run('acts', detach=True, volumes={'acts_vol': {'bind': '/acts', 'mode': 'rw'}}, ports={
         '8000/tcp': k}, command="sh -c 'python manage.py collectstatic --noinput && python manage.py makemigrations --noinput && python manage.py migrate --noinput && gunicorn --reload cloud_project.wsgi:application -b 0.0.0.0:8000 --error-logfile gunicorn.error'")
     container_list.append({k: con})
     k += 1

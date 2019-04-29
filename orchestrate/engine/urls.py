@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'engine'
 urlpatterns = [
-	path('api/v1/<id>', views.ProxyView.as_view())
+	path('<id>', views.ProxyView.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

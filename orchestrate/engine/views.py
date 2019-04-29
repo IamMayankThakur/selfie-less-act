@@ -16,9 +16,10 @@ from .utils import increment_count, prev_con, container_list
 class ProxyView(APIView):
 	def get(self, request, id):
 		increment_count()
-		ip = "http://127.0.0.1:"
-		# print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/" + id)
 		global prev_con
+		ip = "http://127.0.0.1:"
+		print(container_list)
+		print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
 		prev_con += 1
 		res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
 		return Response(res.json(), res.status_code)

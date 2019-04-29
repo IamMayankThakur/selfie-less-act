@@ -347,3 +347,7 @@
 [2019-04-28 19:01:39 +0000] [15] [INFO] Worker reloading: /acts/api/admin.py modified
 [2019-04-28 19:01:46 +0000] [15] [INFO] Worker exiting (pid: 15)
 [2019-04-28 19:01:46 +0000] [17] [INFO] Booting worker with pid: 17
+[2019-04-29 05:15:29 +0000] [9] [INFO] Starting gunicorn 19.9.0
+[2019-04-29 05:15:29 +0000] [9] [INFO] Listening at: http://0.0.0.0:8000 (9)
+[2019-04-29 05:15:29 +0000] [9] [INFO] Using worker: sync
+[2019-04-29 05:15:29 +0000] [12] [INFO] Booting worker with pid: 12
