@@ -35,7 +35,7 @@ class ProxyView(APIView):
 		except:
 			status = 200
 		return Response(data,status)
-	def post(self, request, id):
+	def post(self, request):
 		increment_count()
 		global prev_con
 		ip = "http://127.0.0.1:"
