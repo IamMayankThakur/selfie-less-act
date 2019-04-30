@@ -21,8 +21,8 @@ def increment_count():
         c.api_count = 1
         c.save()
         print("Incremented count")
-        scale()
-        health_check()
+        # scale()
+        # health_check()
         # p = 8000
         # for i in client.containers.list():
         #     container_list.append({p: i})

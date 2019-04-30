@@ -19,8 +19,9 @@ class ProxyView(APIView):
 		global prev_con
 		ip = "http://127.0.0.1:"
 		print(container_list)
-		print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
-		res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
+		# print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
+		# res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
+		res = requests.get(ip+"8000"+"/api/v1/"+id)
 		prev_con += 1
 		# print(res)
 		try:
@@ -36,8 +37,11 @@ class ProxyView(APIView):
 		increment_count()
 		global prev_con
 		ip = "http://127.0.0.1:"
-		res = requests.post(ip + str(list(container_list[((prev_con + 1) % len(
-			container_list))].keys())[0]) + "/api/v1/" + id, data=request.POST)
+		# res = requests.post(ip + str(list(container_list[((prev_con + 1) % len(
+			# container_list))].keys())[0]) + "/api/v1/" + id, data=request.POST)
+		print(request.data)
+		res = requests.post(ip + "8000" + "/api/v1/" + id, json=request.data)
+
 		prev_con += 1
 		try:
 			data = res.json()
