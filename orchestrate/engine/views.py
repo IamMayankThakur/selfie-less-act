@@ -14,15 +14,17 @@ from rest_framework.views import APIView
 from .models import Count
 from .utils import increment_count, prev_con, container_list
 class ProxyView(APIView):
-	def get(self, request, id):
+	def get(self, request):
 		increment_count()
 		global prev_con
 		ip = "http://127.0.0.1:"
-		print(container_list)
+		# print(container_list)
+		# print(id)
+		# print("urln",request.path)
 		# print(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
 		# res=requests.get(ip + str(list(container_list[((prev_con + 1) % len(container_list))].keys())[0]) + "/api/v1/" + id)
-		res = requests.get(ip+"8000"+"/api/v1/"+id)
-		prev_con += 1
+		res = requests.get(ip+"8000"+request.path)
+		# prev_con += 1
 		# print(res)
 		try:
 			data = res.json()
@@ -40,7 +42,7 @@ class ProxyView(APIView):
 		# res = requests.post(ip + str(list(container_list[((prev_con + 1) % len(
 			# container_list))].keys())[0]) + "/api/v1/" + id, data=request.POST)
 		print(request.data)
-		res = requests.post(ip + "8000" + "/api/v1/" + id, json=request.data)
+		res = requests.post(ip + "8000" + request.path, json=request.data)
 
 		prev_con += 1
 		try:

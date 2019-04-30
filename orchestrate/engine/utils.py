@@ -21,6 +21,7 @@ def increment_count():
         c.api_count = 1
         c.save()
         print("Incremented count")
+        run_container()
         # scale()
         # health_check()
         # p = 8000
